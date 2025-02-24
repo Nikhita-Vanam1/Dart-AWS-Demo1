@@ -6,9 +6,13 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: 
+      - demo1
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches: 
+      - demo1
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,7 +32,13 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-
+      - name: Print Secret and Variable
+        env:
+          START_SECRET: ${{ secrets.START }}
+          START_VARIABLE: ${{ vars.START }}
+        run: |
+          echo "The variable is: $START_VARIABLE"
+          echo "The secret is: $START_SECRET"
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
